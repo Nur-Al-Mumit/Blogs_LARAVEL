@@ -9,16 +9,23 @@ use App\Http\Controllers\PostController;
 //     return view('welcome');
 // });
 
+Route::group(["middleware" => ["auth"]], function () {
 
-Route::get('/', [UserController::class, 'index'])->name('index');
+    Route::get('/', [UserController::class, 'index'])->name('index');
+
+    Route::get('/post-list', [PostController::class, 'getPosts'])->name('post.list');
+
+    Route::get('/post', [PostController::class, 'postIndex'])->name('post');
+
+    Route::post('/store-post', [PostController::class, 'storePost'])->name('post.store');
 
 
+    Route::get('/edit-post/{id}', [PostController::class, 'editPost'])->name('edit.post');
 
-Route::get('/post-list', [PostController::class, 'getPosts'])->name('post.list');
+    Route::post('/post-update', [PostController::class, 'updatePost'])->name('post.update');
 
-Route::get('/post', [PostController::class, 'postIndex'])->name('post');
-
-Route::post('/store-post', [PostController::class, 'storePost'])->name('post.store');
+    Route::get('/post-delete/{id}', [PostController::class, 'deletePost'])->name('post.delete');
+});
 
 Route::get('/register', [AuthenticatedSessionController::class, 'registerIndex'])->name('register');
 

@@ -11,13 +11,8 @@ class UserController extends Controller
 {
     public function index()
     {
-        // return Auth::user();
-
-        if (!Auth::check()) {
-            return redirect(route('login'));
-        } else {
-            $posts = Post::whereUser_id(Auth::id())->get();
-            return view('frontend.index')->with(['user' => Auth::user(), 'posts' => $posts,]);
-        }
+        // $posts = Post::whereUser_id(Auth::id())->get();
+        // return view('frontend.index')->with(['posts' => $posts,]);
+        return redirect(route("post.list"));
     }
 }

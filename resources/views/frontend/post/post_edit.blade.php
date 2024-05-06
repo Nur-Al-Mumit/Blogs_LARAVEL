@@ -11,16 +11,16 @@
 <body>
     <div class="container mt-5">
         <h2>Create New Blog Post</h2>
-        <form method="POST" action="{{ route('post.store') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('post.update',['id'=> $post[0]->id]) }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" name="title" required>
+                <input type="text" class="form-control" id="title" name="title" required value="{{$post[0]->title}}">
             </div>
 
             <div class="form-group">
                 <label for="content">Content</label>
-                <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
+                <textarea class="form-control" id="content" name="content" rows="5" required>{{$post[0]->content}}</textarea>
             </div>
 
             <input type="hidden" name="user_id" value="{{Auth::user()->id}}">

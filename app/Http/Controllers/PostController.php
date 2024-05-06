@@ -8,14 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function postIndex()
     {
-        return view('frontend.post.post')->with(['user' => Auth::user()]);
+        return view('frontend.post.post');
     }
-
 
     public function storePost(Request $request)
     {
@@ -30,44 +27,33 @@ class PostController extends Controller
         return redirect(route('post.list'));
     }
 
-
     public function getPosts()
     {
         $posts = Post::whereUser_id(Auth::id())->get();
 
-        // return $posts;
-        return view('frontend.index')->with(['posts' => $posts, 'user' => Auth::user()]);
+        return view('frontend.index')->with(['posts' => $posts]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Post $post)
+    public function editPost($id)
     {
-        //
+        $post = Post::whereId($id)->get();
+        return view('frontend.post.post_edit')->with(['post' => $post]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Post $post)
+    public function updatePost(Request $request)
     {
-        //
+        $post = Post::whereId($request->id)->first();
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->save();
+
+        return redirect(route('post.list'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Post $post)
+    public function deletePost($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Post $post)
-    {
-        //
+        // return $id;
+        // Post::whereId($id)->delete();
+        return redirect(route('post.list'));
     }
 }

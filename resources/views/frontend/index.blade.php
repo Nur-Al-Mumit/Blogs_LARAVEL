@@ -18,9 +18,6 @@
 </head>
 
 <body>
-    <!-- {{$user}}
-    {{$posts}} -->
-    {{Auth::user()}}
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <a class="navbar-brand" href="">Blogs</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +27,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link">{{$user->name}}</a>
+                    <a class="nav-link">{{Auth::user()->name}}</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="{{route('logout')}}">Logout <span class="sr-only">(current)</span></a>
@@ -53,13 +50,20 @@
                         <p class="card-text">{{ $post->content }}</p>
                     </div>
                     <div class="card-footer">
+                        <!-- Update button -->
+                        <a href="{{route('edit.post', $post->id)}}" class="btn btn-primary btn-sm">Update</a>
+                        <!-- Delete button -->
+                        <a href="{{route('post.delete', $post->id)}}" class="btn btn-danger btn-sm">Delete</a>
+                        <br>
                         <small class="text-muted">Created: {{ $post->created_at->format('Y-m-d H:i:s') }}</small><br>
                         <small class="text-muted">Updated: {{ $post->updated_at->format('Y-m-d H:i:s') }}</small>
+
                     </div>
                 </div>
             </div>
             @endforeach
         </div>
+
 
         <!-- <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center mt-4">
