@@ -21,7 +21,6 @@ class PostController extends Controller
     {
 
         $post = new Post();
-        $post->heading = $request->heading;
         $post->title = $request->title;
         $post->content = $request->content;
         $post->user_id = $request->user_id;

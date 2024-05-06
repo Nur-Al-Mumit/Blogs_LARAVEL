@@ -9,6 +9,12 @@ use App\Http\Controllers\PostController;
 //     return view('welcome');
 // });
 
+Route::group(["middleware"=> ["auth"]], function () {});
+
+
+
+
+
 Route::get('/', [UserController::class, 'index'])->name('index');
 
 

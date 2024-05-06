@@ -20,6 +20,7 @@
 <body>
     <!-- {{$user}}
     {{$posts}} -->
+    {{Auth::user()}}
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <a class="navbar-brand" href="">Blogs</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,9 +49,7 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title mb-4"><strong style="font-size: 1.5rem;">{{ $post->heading }}</strong></h5>
-
-                        <h5 class="card-title">{{ $post->title }}</h5>
+                        <h5 class="card-title"><strong style="font-size: 1.5rem;">{{ $post->title }}</strong></h5>
                         <p class="card-text">{{ $post->content }}</p>
                     </div>
                     <div class="card-footer">

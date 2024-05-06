@@ -16,10 +16,10 @@
         <form method="POST" action="{{ route('post.store') }}" enctype="multipart/form-data">
             @csrf
 
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="heading">Heading</label>
                 <input type="text" class="form-control" id="heading" name="heading" required>
-            </div>
+            </div> -->
 
             <div class="form-group">
                 <label for="title">Title</label>
