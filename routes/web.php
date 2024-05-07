@@ -13,26 +13,21 @@ Route::group(["middleware" => ["auth"]], function () {
 
     Route::get('/', [UserController::class, 'index'])->name('index');
 
-    Route::get('/post-list', [PostController::class, 'getPosts'])->name('post.list');
-
-    Route::get('/post', [PostController::class, 'postIndex'])->name('post');
-
-    Route::post('/store-post', [PostController::class, 'storePost'])->name('post.store');
-
-
-    Route::get('/edit-post/{id}', [PostController::class, 'editPost'])->name('edit.post');
-
-    Route::post('/post-update', [PostController::class, 'updatePost'])->name('post.update');
-
-    Route::get('/post-delete/{id}', [PostController::class, 'deletePost'])->name('post.delete');
+    Route::controller(PostController::class)->group(function () {
+        Route::get('/post-list',  'getPosts')->name('post.list');
+        Route::get('/post',  'postIndex')->name('post');
+        Route::post('/store-post',  'storePost')->name('post.store');
+        Route::get('/edit-post/{id}',  'editPost')->name('edit.post');
+        Route::post('/post-update',  'updatePost')->name('post.update');
+        Route::get('/post-delete/{id}',  'deletePost')->name('post.delete');
+    });
 });
 
-Route::get('/register', [AuthenticatedSessionController::class, 'registerIndex'])->name('register');
 
-Route::post('/user-register', [AuthenticatedSessionController::class, 'register'])->name('user.register');
-
-Route::get('/login', [AuthenticatedSessionController::class, 'loginIndex'])->name('login');
-
-Route::post('/user-login', [AuthenticatedSessionController::class, 'login'])->name('user.login');
-
-Route::get('/logout', [AuthenticatedSessionController::class, 'logout'])->name('logout');
+Route::controller(AuthenticatedSessionController::class)->group(function () {
+    Route::get('/register', 'registerIndex')->name('register');
+    Route::post('/user-register', 'register')->name('user.register');
+    Route::get('/login', 'loginIndex')->name('login');
+    Route::post('/user-login', 'login')->name('user.login');
+    Route::get('/logout', 'logout')->name('logout');
+});
