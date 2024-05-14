@@ -9,8 +9,20 @@
 </head>
 
 <body>
+
     <div class="container mt-5">
+
         <h2>Create New Blog Post</h2>
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+
         <form method="POST" action="{{ route('post.update',['id'=> $post[0]->id]) }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
@@ -21,6 +33,11 @@
             <div class="form-group">
                 <label for="content">Content</label>
                 <textarea class="form-control" id="content" name="content" rows="5" required>{{$post[0]->content}}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="image">Upload JPEG Image</label>
+                <input type="file" class="form-control" id="image" name="image">
             </div>
 
             <input type="hidden" name="user_id" value="{{Auth::user()->id}}">

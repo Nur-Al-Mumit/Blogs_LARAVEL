@@ -26,6 +26,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
+                @auth
                 <li class="nav-item active">
                     <a class="nav-link">{{Auth::user()->name}}</a>
                 </li>
@@ -35,6 +36,16 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('post')}}">Post Blog</a>
                 </li>
+                @endauth
+
+                @guest
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{route('login')}}">Login <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('post')}}">Post Blog</a>
+                </li>
+                @endguest
             </ul>
         </div>
     </nav>
@@ -50,14 +61,12 @@
                         <p class="card-text">{{ $post->content }}</p>
                     </div>
                     <div class="card-footer">
-                        <!-- Update button -->
-                        <a href="{{route('edit.post', $post->id)}}" class="btn btn-primary btn-sm">Update</a>
-                        <!-- Delete button -->
-                        <a href="{{route('post.delete', $post->id)}}" class="btn btn-danger btn-sm">Delete</a>
+                        @if (Auth::id() === $post->user_id)
+                        <a href="{{route('post.view', $post->id)}}" class="btn btn-primary btn-sm mx-auto">View</a>
+                        @endif
                         <br>
                         <small class="text-muted">Created: {{ $post->created_at->format('Y-m-d H:i:s') }}</small><br>
                         <small class="text-muted">Updated: {{ $post->updated_at->format('Y-m-d H:i:s') }}</small>
-
                     </div>
                 </div>
             </div>

@@ -10,6 +10,15 @@
 
 <body>
     <div class="container mt-5">
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
         <h2>Create New Blog Post</h2>
         <form method="POST" action="{{ route('post.store') }}" enctype="multipart/form-data">
             @csrf
@@ -21,6 +30,11 @@
             <div class="form-group">
                 <label for="content">Content</label>
                 <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="image">Upload JPEG Image</label>
+                <input type="file" class="form-control" id="image" name="image">
             </div>
 
             <input type="hidden" name="user_id" value="{{Auth::user()->id}}">

@@ -9,12 +9,11 @@ use App\Http\Controllers\PostController;
 //     return view('welcome');
 // });
 
+Route::get('/', [UserController::class, 'index'])->name('index');
+
 Route::group(["middleware" => ["auth"]], function () {
-
-    Route::get('/', [UserController::class, 'index'])->name('index');
-
     Route::controller(PostController::class)->group(function () {
-        Route::get('/post-list',  'getPosts')->name('post.list');
+        Route::get('/post-view{id}',  'viewPost')->name('post.view');
         Route::get('/post',  'postIndex')->name('post');
         Route::post('/store-post',  'storePost')->name('post.store');
         Route::get('/edit-post/{id}',  'editPost')->name('edit.post');
@@ -22,7 +21,6 @@ Route::group(["middleware" => ["auth"]], function () {
         Route::get('/post-delete/{id}',  'deletePost')->name('post.delete');
     });
 });
-
 
 Route::controller(AuthenticatedSessionController::class)->group(function () {
     Route::get('/register', 'registerIndex')->name('register');
